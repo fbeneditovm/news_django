@@ -1,9 +1,14 @@
 from psycopg import connect
 from psycopg.errors import DuplicateDatabase
 from environs import env
+import os
+from pathlib import Path
 
-# Read .env file
-env.read_env()
+# Get the project root directory
+BASE_DIR = Path(__file__).resolve().parent
+
+# Read .env file with explicit path
+env.read_env(os.path.join(BASE_DIR, 'docker', '.env'))
 
 def create_database():
     new_db_name = env('DB_NAME', default='news_api')
