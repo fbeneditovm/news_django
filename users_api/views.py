@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from rest_framework import viewsets, status, permissions, generics
+# from django.shortcuts import render
+from rest_framework import status, permissions, generics  # , viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 

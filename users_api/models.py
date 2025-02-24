@@ -2,7 +2,6 @@ from typing import Tuple
 
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 from utils.functions import validate_image_file
