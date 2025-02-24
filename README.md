@@ -83,8 +83,8 @@ docker-compose exec django_app python -m pytest
 - `"CLI"` - Client
 
 ### Plans
-- `"INFO"` - JOTA Info (access to all non-column articles)
-- `"PRO"` - JOTA PRO (access to specific columns)
+- `"INFO"` - Info (access to all non-column articles)
+- `"PRO"` - PRO (access to specific columns)
 
 ### Article Columns
 - `"POW"` - Power
@@ -105,3 +105,17 @@ The project uses:
 - PostgreSQL 17
 - pytest for testing
 - JWT for authentication
+
+## API Documentation
+
+The API documentation is available through Swagger UI at the following endpoints:
+
+- Swagger UI: `http://localhost:8000/swagger/`
+- ReDoc UI: `http://localhost:8000/redoc/`
+- OpenAPI Schema: `http://localhost:8000/swagger.json`
+
+These endpoints provide interactive documentation of all API endpoints, including:
+- Authentication endpoints
+- User management
+- News article operations
+- Required parameters and response formats

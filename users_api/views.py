@@ -6,6 +6,7 @@ from rest_framework.permissions import BasePermission
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 from .models import User
 from .serializers import UserSerializer
@@ -36,7 +37,9 @@ class IsAdmin(BasePermission):
 
 
 class ClientUserCreateView(generics.CreateAPIView):
-    """View for unauthenticated users to create client accounts"""
+    """
+    View for unauthenticated users to create client accounts.
+    """
 
     permission_classes = []  # Allow unauthenticated access
 
@@ -62,17 +65,41 @@ class ClientUserCreateView(generics.CreateAPIView):
             user_profile=USER_PROFILES[1][0], is_admin=False, is_staff=False, is_superuser=False  # Set to "Client"
         )
 
+    @swagger_auto_schema(
+        operation_description="Create a new client user account",
+        request_body=UserSerializer,
+        responses={201: UserSerializer()},
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 class UserCollectionView(APIView):
-    """View for managing the collection of users (list all, create new)"""
+    """
+    View for managing the collection of users.
+
+    get:
+    Return a list of all users (admin only).
+
+    post:
+    Create a new user (admin only).
+    """
 
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
 
+    @swagger_auto_schema(
+        operation_description="List all users (admin only)", responses={200: UserSerializer(many=True)}
+    )
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(
+        operation_description="Create a new user (admin only)",
+        request_body=UserSerializer,
+        responses={201: UserSerializer()},
+    )
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():

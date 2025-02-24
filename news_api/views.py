@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions
+from drf_yasg.utils import swagger_auto_schema
 from .models import NewsArticle
 from .serializers import NewsArticleSerializer
 from django.db import models
@@ -38,8 +39,45 @@ class IsEmployeeOrReadOnly(permissions.BasePermission):
 
 
 class NewsArticleViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for viewing and editing news articles.
+
+    list:
+    Return a list of all news articles the user has access to.
+
+    create:
+    Create a new news article (employee only).
+
+    retrieve:
+    Return the given news article if user has access.
+
+    update:
+    Update the given news article (employee only, admin can update any).
+
+    partial_update:
+    Partially update the given news article (employee only, admin can update any).
+
+    destroy:
+    Delete the given news article (employee only, admin can delete any).
+    """
+
     serializer_class = NewsArticleSerializer
     permission_classes = [permissions.IsAuthenticated, IsEmployeeOrReadOnly]
+
+    @swagger_auto_schema(
+        operation_description="List news articles based on user's access level",
+        responses={200: NewsArticleSerializer(many=True)},
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description="Create a new news article (employee only)",
+        request_body=NewsArticleSerializer,
+        responses={201: NewsArticleSerializer()},
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
     def get_queryset(self):
         user = self.request.user
