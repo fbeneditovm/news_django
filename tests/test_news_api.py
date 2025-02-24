@@ -235,7 +235,7 @@ class TestNewsAPI:
         response = api_client.patch(url, data, format="json")
         assert response.status_code == status.HTTP_200_OK
         assert response.data["title"] == "Updated by admin"
-        
+
         # Verify the employee2 can read the article now
         # Test employee2 cannot edit the article
         data = {"title": "Updated by admin", "status": ARTICLE_STATUS[1][0]}
