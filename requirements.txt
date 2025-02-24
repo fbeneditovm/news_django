@@ -2,5 +2,12 @@ psycopg==3.2
 django==4.2.19
 djangorestframework~=3.15.2
 django-cors-headers==4.7.0
+djangorestframework_simplejwt==5.4.0
 environs==14.1.1
 pillow==11.1.0
+flake8==7.0.0
+autopep8==2.0.4
+black==24.2.0
+pytest==8.3.4
+pytest_django==4.10.0
+psycopg2-binary

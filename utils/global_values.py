@@ -1,16 +1,20 @@
-USER_TYPES = [
-        ('EMP', 'Employee'),
-        ('CLI', 'Client'),
-    ]
+USER_PROFILES = [
+    ("EMP", "Employee"),
+    ("CLI", "Client"),
+]
 ARTICLE_STATUS = [
-        ('DRAF', 'Draft'),
-        ('PUBD', 'Published'),
-    ]
+    ("DRAF", "Draft"),
+    ("PUBD", "Published"),
+]
 ARTICLE_COLUMNS = [
-        ('MAIN', 'Main'),
-        ('POW', 'Power'),
-        ('TAX', 'Taxes'),
-        ('HLTH', 'Health'),
-        ('EN', 'Energy'),
-        ('LAB', 'Labor'),
-    ]
+    ("POW", "Power"),
+    ("TAX", "Taxes"),
+    ("HLTH", "Health"),
+    ("EN", "Energy"),
+    ("LAB", "Labor"),
+]
+
+PLANS = [
+    ("INFO", "JOTA Info"),
+    ("PRO", "JOTA PRO"),
+]
