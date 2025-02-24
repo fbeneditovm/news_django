@@ -88,7 +88,7 @@ docker/postgres_data/
 venv/
 
 # Environment variables
-.env
+# .env Will commit in this sample project
 
 # Docker
 postgres_data/
