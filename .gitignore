@@ -58,6 +58,7 @@ MANIFEST
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+media/
 
 # Environments
 docker/.env
@@ -81,3 +82,19 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+
+docker/postgres_data/
+venv/
+
+# Environment variables
+.env
+
+# Docker
+postgres_data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
