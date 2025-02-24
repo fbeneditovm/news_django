@@ -19,7 +19,7 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Read .env file - Move this to the top, before any env vars are used
-env.read_env(os.path.join(BASE_DIR, "docker", ".env"))
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -88,13 +88,16 @@ WSGI_APPLICATION = "news_django_crud.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME", default="news_api"),
+        "NAME": env("DB_NAME", default="postgres"),
         "USER": env("DB_USER", default="postgres"),
         "PASSWORD": env("DB_PASSWORD", default="postgres"),
-        "HOST": env("DB_HOST", default="localhost"),  # TODO: After dockerizing, change to 'postgres'
-        "PORT": "5432",
+        "HOST": env("DB_HOST", default="postgres"),
+        "PORT": env("DB_PORT", default="5432"),
         "CONN_MAX_AGE": 60,
         "OPTIONS": {"options": "-c search_path=public"},
+        "TEST": {
+            "NAME": "test_" + env("DB_NAME", default="postgres"),
+        },
     }
 }
 

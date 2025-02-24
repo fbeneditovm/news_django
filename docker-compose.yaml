@@ -1,20 +1,4 @@
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=postgres
-      - DB_PORT=5432
-    depends_on:
-      - postgres
-
   postgres:
     image: postgres:17
     env_file:
@@ -22,13 +6,44 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: postgres
+    expose:
+      - "5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  django_app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=postgres
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - .:/app
+    networks:
+      - frontend
+      - backend
+    command: sh -c "python3 -m pytest --ds=news_django_crud.settings && python3 manage.py runserver 0.0.0.0:8000"
 
 volumes:
   postgres_data:
 
 
+networks:
+  frontend:
+  backend:
+    internal: true

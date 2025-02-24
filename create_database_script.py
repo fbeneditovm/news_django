@@ -8,7 +8,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
 # Read .env file with explicit path
-env.read_env(os.path.join(BASE_DIR, "docker", ".env"))
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 
 def create_database():
