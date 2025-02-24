@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "users_api",
     "news_api",
+    "drf_yasg",
     # 'storages', # TODO: Uncomment when in production
 ]
 
