@@ -1,4 +1,4 @@
-# JOTA News API
+# News API
 
 A RESTful API for news management built with Django and Django REST Framework. The system supports different user profiles, JWT authentication, and column-based access control.
 
