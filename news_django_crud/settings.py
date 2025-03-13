@@ -186,8 +186,17 @@ SIMPLE_JWT = {
 
 # Rest Framework settings
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": ("users_api.authentication.BearerJWTAuthentication",),
 }
 
 # Set the custom user model
 AUTH_USER_MODEL = "users_api.User"
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header", "description": "Format: Bearer <JWT>"}
+    },
+    "USE_SESSION_AUTH": False,  # Disable Django session login
+    "SECURITY_REQUIREMENTS": [{"Bearer": []}],
+    "VALIDATOR_URL": None,
+}
